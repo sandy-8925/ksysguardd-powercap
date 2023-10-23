@@ -60,6 +60,7 @@ public:
     string name;
     SensorType *sensorType;
     virtual string readValue() = 0;
+    virtual string getMetadata() = 0;
 };
 
 struct EnergyReading
@@ -117,6 +118,8 @@ public:
     }
 
     string readValue() { return format("{:.3f}", lastPowerMeasurement); }
+
+    string getMetadata() { return format("{}\t0.000\t1000.000\tW", name); }
 };
 
 static std::map<string, Sensor *> sensorMap;
@@ -167,8 +170,11 @@ int main()
         } else if (sensorMap.contains(input_command)) {
             //Print out the current value for this sensor
             cout << sensorMap.at(input_command)->readValue() << endl;
-        } else {
-            //todo: Add else if where we check if input command is of the format sensorname? which means we have to print sensor metadata
+        } else if (input_command.ends_with('?')) {
+            //Check if input command is of the format sensorname? which means we have to print sensor metadata
+            auto trueInputCommand = input_command.substr(0, input_command.size() - 1);
+            if (sensorMap.contains(trueInputCommand))
+                cout << sensorMap.at(trueInputCommand)->getMetadata() << endl;
         }
     }
 
