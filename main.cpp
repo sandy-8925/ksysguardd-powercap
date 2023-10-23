@@ -111,6 +111,7 @@ public:
         sensorType = new FloatSensorType();
         lastEnergyReading = readEnergyValue();
         thread t1(&PowerCapEnergySensor::updateEnergyValueLoop, this);
+        t1.detach();
     }
 
     string readValue() { return format("<>", lastPowerMeasurement); }
