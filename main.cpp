@@ -116,7 +116,7 @@ public:
         t1.detach();
     }
 
-    string readValue() { return format("{}", lastPowerMeasurement); }
+    string readValue() { return format("{:.3f}", lastPowerMeasurement); }
 };
 
 static std::map<string, Sensor *> sensorMap;
