@@ -12,6 +12,7 @@ static const string KSYSGUARDD_VERSION = "1.2.0";
 static const string KSYSGUARDD = "ksysguardd";
 static const string KSYSGUARDD_PROMPT = format("{}> ", KSYSGUARDD);
 static const string MONITORS = "monitors";
+static const string COMMAND_EXIT = "exit";
 static const string POWERCAP_DIRPATH = "/sys/class/powercap";
 static const filesystem::path POWERCAP_DIR{POWERCAP_DIRPATH};
 static const string energy_uj_filename = "energy_uj";
@@ -154,7 +155,9 @@ int main()
     while (1) {
         cout << KSYSGUARDD_PROMPT;
         cin >> input_command;
-        if (input_command == MONITORS) {
+        if (input_command == COMMAND_EXIT) {
+            break;
+        } else if (input_command == MONITORS) {
             //Print out all of the available sensors along with type
             for (auto sensorEntry : sensorMap) {
                 cout << sensorEntry.first << '\t' << sensorEntry.second->sensorType->getStringRep()
