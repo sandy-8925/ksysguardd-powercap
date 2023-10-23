@@ -87,11 +87,12 @@ class PowerCapEnergySensor : public Sensor
 
     float calculatePowerUse(EnergyReading lastEnergyReading, EnergyReading newEnergyReading)
     {
-        uint64_t energyDiff = (newEnergyReading.energy_uj - lastEnergyReading.energy_uj) / 1e6;
+        float energyDiff = (float) (newEnergyReading.energy_uj - lastEnergyReading.energy_uj)
+                           / (float) 1e6;
         time_t timeDiff = newEnergyReading.measurementTime - lastEnergyReading.measurementTime;
         if (timeDiff <= 0)
             return 0;
-        return energyDiff / timeDiff;
+        return energyDiff / (float) timeDiff;
     }
 
     void updateEnergyValueLoop()
