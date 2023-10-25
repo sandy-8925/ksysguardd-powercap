@@ -119,7 +119,7 @@ public:
 
     string readValue() { return format("{:.3f}", lastPowerMeasurement); }
 
-    string getMetadata() { return format("{}\t0.000\t1000.000\tW", name); }
+    string getMetadata() { return format("{}\t0.000\t150.000\tW", name); }
 };
 
 static std::map<string, Sensor *> sensorMap;
